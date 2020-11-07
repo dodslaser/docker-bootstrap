@@ -6,13 +6,13 @@ if ! [ -e $CONFIGPATH ]; then
         | tr -cd '\40-\176' \
         | fold -w ${1:-4096} \
         | head -n1 \
-        > /ca-password
+        > $PWDPATH
     
     step ca init \
         --name ${NAME:=Smallstep} \
         --dns=${DNS:=localhost} \
         --provisioner=${PROVISIONER:=admin} \
-        --password-file=/ca-password \
+        --password-file=$PWDPATH \
         --address=:443 
 
     step ca provisioner add acme \
@@ -22,4 +22,4 @@ if ! [ -e $CONFIGPATH ]; then
     sed -i -E 's/("badgerFileLoadingMode": )""/\1"FileIO"/; s/("type": )"badger"/\1"badgerV2"/' config/ca.json
 fi
 
-step-ca --password-file /ca-password $CONFIGPATH
+step-ca --password-file $PWDPATH $CONFIGPATH
