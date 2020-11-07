@@ -7,9 +7,7 @@ if ! [ -e $CONFIGPATH ]; then
         | fold -w ${1:-4096} \
         | head -n1 \
         > /ca-password
-
-    mkdir -p $HOME/certs
-    chown step:step $HOME/certs
+    
     step ca init \
         --name ${NAME:=Smallstep} \
         --dns=${DNS:=localhost} \
