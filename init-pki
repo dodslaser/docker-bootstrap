@@ -8,10 +8,12 @@ if ! [ -e $CONFIGPATH ]; then
         | head -n1 \
         > $PWDPATH
 
+    mkdir -p $HOME/certs
+    chown step:step $HOME/certs
     step ca init \
-        --name $NAME \
-        --dns=$DNS \
-        --provisioner=$PROVISIONER \
+        --name ${NAME:=Smallstep} \
+        --dns=${DNS:=localhost} \
+        --provisioner=${PROVISIONER:=admin} \
         --password-file=$PWDPATH \
         --address=:443 
 
