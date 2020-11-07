@@ -1,13 +1,6 @@
 #!/bin/sh
 set -e
 
-if [ $(id -u) != 0 ]; then
-    echo 'The container needs to be run as root'
-    exit 1
-fi 
-
-apk add su-exec
-
 if ! [ -e $CONFIGPATH ]; then
     mkdir -p $(dirname $PWDPATH)
     cat /dev/urandom \
@@ -18,18 +11,18 @@ if ! [ -e $CONFIGPATH ]; then
 
     chown -R step:step $(dirname $PWDPATH)
 
-    su-exec step step ca init \
+    step ca init \
         --name ${NAME:=Smallstep} \
         --dns=${DNS:=localhost} \
         --provisioner=${PROVISIONER:=admin} \
         --password-file=$PWDPATH \
         --address=:443 
 
-    su-exec step step ca provisioner add acme \
+    step ca provisioner add acme \
         --type ACME
     
     # Temporary fix for database errors
     sed -i -E 's/("badgerFileLoadingMode": )""/\1"FileIO"/; s/("type": )"badger"/\1"badgerV2"/' config/ca.json
 fi
 
-su-exec step step-ca --password-file $PWDPATH $CONFIGPATH
+step-ca --password-file $PWDPATH $CONFIGPATH
