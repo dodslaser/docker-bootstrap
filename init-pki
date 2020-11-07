@@ -9,8 +9,6 @@ if ! [ -e $CONFIGPATH ]; then
         | head -n1 \
         > $PWDPATH
 
-    chown -R step:step $(dirname $PWDPATH)
-
     step ca init \
         --name ${NAME:=Smallstep} \
         --dns=${DNS:=localhost} \
