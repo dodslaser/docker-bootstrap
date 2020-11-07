@@ -16,16 +16,16 @@ if ! [ -e $CONFIGPATH ]; then
         | head -n1 \
         > $PWDPATH
 
-    chown -R step:step /home/step
+    chown -R step:step $(dirname $PWDPATH)
 
-    su step -c step ca init \
+    su-exec step -c step ca init \
         --name ${NAME:=Smallstep} \
         --dns=${DNS:=localhost} \
         --provisioner=${PROVISIONER:=admin} \
         --password-file=$PWDPATH \
         --address=:443 
 
-    su step -c step ca provisioner add acme \
+    su-exec step -c step ca provisioner add acme \
         --type ACME
     
     # Temporary fix for database errors
