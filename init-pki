@@ -16,8 +16,7 @@ if ! [ -e $CONFIGPATH ]; then
         | head -n1 \
         > $PWDPATH
 
-    chown step:step /home/step/certs
-    chown step:step $PWDPATH
+    chown -R step:step /home/step
 
     su-exec step step ca init \
         --name ${NAME:=Smallstep} \
