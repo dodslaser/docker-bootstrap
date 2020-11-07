@@ -1,0 +1,24 @@
+#!/bin/sh
+set -e
+if ! [ -e $CONFIGPATH ]; then
+    cat /dev/urandom \
+        | tr -cd '\40-\176' \
+        | fold -w ${1:-4096} \
+        | head -n1 \
+        > $PWDPATH
+
+    step ca init \
+        --name $NAME \
+        --dns=$DNS \
+        --provisioner=$PROVISIONER \
+        --password-file=$PWDPATH \
+        --address=:443 
+
+    step ca provisioner add acme \
+        --type ACME
+    
+    # Temporary fix for database errors
+    sed -i -E 's/("badgerFileLoadingMode": )""/\1"FileIO"/; s/("type": )"badger"/\1"badgerV2"/' config/ca.json
+fi
+
+step-ca --password-file $PWDPATH $CONFIGPATH
