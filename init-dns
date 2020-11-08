@@ -2,7 +2,7 @@
 set -e
 
 if [ ${INGRESS_DOMAIN+x} ] && [ ${INGRESS_IP+x} ]; then
-    tee /etc/dnsmasq.d/02-localdns.conf <<< address=/$INGRESS_DOMAIN/$INGRESS_IP
+    echo "address=/$INGRESS_DOMAIN/$INGRESS_IP" > /etc/dnsmasq.d/02-localdns.conf
 fi
 
 /s6-init
