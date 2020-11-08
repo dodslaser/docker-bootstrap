@@ -4,10 +4,6 @@ Various init scripts for bootstraping docker containers
 
 Bootstrap a local DNS based on pihole
 
-- **INGRESS_IP** IP of the ingress
-- **INGRESS_DOMAIN** base domain of the ingress
-
-**USAGE:**
 ```yaml
 [...]
 image: pihole/pihole
@@ -23,7 +19,6 @@ environment:
 
 Bootstrap a PKI based on smallstep/step-ca from environment variables
 
-**USAGE:**
 ```yaml
 [...]
 image: traefik
