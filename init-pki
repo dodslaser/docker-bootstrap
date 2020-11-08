@@ -14,11 +14,11 @@ if ! [ -e $CONFIGPATH ]; then
         --dns=${DNS:=localhost} \
         --provisioner=${PROVISIONER:=admin} \
         --password-file=$PWDPATH \
-        --address=:443 
+        --address=:9000 
 
     step ca provisioner add acme \
         --type ACME
-
+    
     # Temporary fix for database errors
     sed -i -E 's/("badgerFileLoadingMode": )""/\1"FileIO"/; s/("type": )"badger"/\1"badgerV2"/' config/ca.json
 fi
