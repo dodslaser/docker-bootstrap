@@ -2,7 +2,7 @@ Various init scripts for bootstraping docker containers
 
 # init-dns
 
-Bootstrap a local DNS based on pihole
+Bootstrap a local DNS based on `pihole/pihole`
 
 ```yaml
 [...]
@@ -17,11 +17,11 @@ environment:
 
 # init-pki
 
-Bootstrap a PKI based on smallstep/step-ca from environment variables
+Bootstrap a PKI based on `smallstep/step-ca` from environment variables
 
 ```yaml
 [...]
-image: traefik
+image: smallstep/step-ca
 entrypoint: ''
 command: /bin/sh -c "curl -fsSL [init-pki URL] | /bin/sh"
 environment:
