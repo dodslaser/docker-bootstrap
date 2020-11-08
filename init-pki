@@ -14,7 +14,7 @@ if ! [ -e $CONFIGPATH ]; then
         --dns=${DNS:=localhost} \
         --provisioner=${PROVISIONER:=admin} \
         --password-file=$PWDPATH \
-        --address=:9000 
+        --address=:443
 
     step ca provisioner add acme \
         --type ACME
