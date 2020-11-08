@@ -17,7 +17,7 @@ environment:
 
 # init-pki
 
-Bootstrap a PKI based on `smallstep/step-ca` from environment variables
+Bootstrap a PKI based on `smallstep/step-ca`
 
 ```yaml
 [...]
