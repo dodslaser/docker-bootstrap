@@ -29,6 +29,7 @@ environment:
   - DNS: 'pki,pki.mydomain.local' # DNS names where the PKI will be reachable 
   - PROVISIONER: 'admin@mydomain.local' # Name of the first provisioner
  volumes:
+  - /dev/urandom:/dev/urandom
   - pki-step:/home/step
 [...]
 ```
